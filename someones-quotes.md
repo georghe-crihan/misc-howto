@@ -1,4 +1,4 @@
-#The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
+# The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
 > Permanently Banned
 > Posts: 158
 > Joined: Thu Mar 02, 2017 6:40 am
