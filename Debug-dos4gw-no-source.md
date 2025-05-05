@@ -1,4 +1,5 @@
 Q: How do I debug DOS4GW programs without source code?
+
 A: Create S-ICE_PM directory
 - Take the WIN386.EXE from the Windows 3.1 distribution, rename it to Win.Com, move to S-ICE_PM.
 - Take the COMMAND.COM from the DOS distribution, rename it to KRNL386.EXE, move to S-ICE_PM.
