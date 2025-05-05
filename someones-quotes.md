@@ -18,7 +18,7 @@
 > @Winins: mvdm is an early name for NTVDM - the DOS compatibility box for NT. Presumably it's based off of the OS/2 mdvm name.
 
 
-#Re: The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
+# Re: The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
 > Post  by jimmsta » Thu Sep 10, 2020 10:46 pm
 >
 > I ended up taking a look at the nt 3.5 version instead of the nt 4.0 version. It _is_ the 3.1 kernel, with WOW 1.0 ifdef's setup. It appears
@@ -39,7 +39,7 @@
 > too. The whole thing is quite a powerful piece of software, and it was hidden within NT for the most part.
 >
 
-#Re: The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
+# Re: The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
 > Post  by AltairMan » Sat Sep 12, 2020 8:46 am
 >
 > I never really looked into it before, but Win2K was a big change in how legacy 16-bit apps ran in the NT environment. NTVDM is supposed to be
@@ -50,7 +50,7 @@
 >
 > The other thing I'd like to see is VMM and the parts that make up WIN386. I know that sample code exists for some of the VxDs, but not all.
 
-#Re: The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
+# Re: The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
 > Post  by LOstDos » Wed Oct 07, 2020 6:49 am
 >
 > The book "SHOW STOPPER!" talks a little bit about it. The project (NT) needed a way to run all the popular programs of that era the NT was first
@@ -60,7 +60,7 @@
 > And yes, it is true that the kernel is all in there. The main proof of course being Matt Pietrek's Windows Internals book going into details how
 > the memory and task scheduling works.
 
-#Re: The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
+# Re: The source code to Windows 3.1 KERNEL has been sitting under our noses since 2004
 > Post  by AltairMan » Fri Jan 01, 2021 10:56 am
 >
 > Not sure why the thread pointed to by @voidp dies either. I don't know if anyone on this thread tried building what's there; I was going to play

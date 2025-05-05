@@ -1,11 +1,11 @@
 Q: How do I debug DOS4GW programs without source code?
 
 A: Create S-ICE_PM directory
-- Take the WIN386.EXE from the Windows 3.1 distribution, rename it to Win.Com, move to S-ICE_PM.
-- Take the COMMAND.COM from the DOS distribution, rename it to KRNL386.EXE, move to S-ICE_PM.
-- Take the following files from WIN-ICE distribution: WINICE.EXE, WINICE.DAT, WLDR.EXE, move to S-ICE_PM.
-- Optionally you could also add SERIAL.EXE, UPTIME.EXE, WLOG.EXE, but avoid adding WINICE.VID.
-- In the S-ICE_PM directory, create the SYSTEM.INI file with the following content:
+- Take the `WIN386.EXE` from the Windows 3.1 distribution, rename it to `Win.Com`, move to `S-ICE_PM`.
+- Take the `COMMAND.COM` from the DOS distribution, rename it to `KRNL386.EXE`, move to `S-ICE_PM`.
+- Take the following files from WIN-ICE distribution: `WINICE.EXE`, `WINICE.DAT`, `WLDR.EXE`, move to `S-ICE_PM`.
+- Optionally you could also add `SERIAL.EXE`, `UPTIME.EXE`, `WLOG.EXE`, but avoid adding `WINICE.VID`.
+- In the `S-ICE_PM` directory, create the `SYSTEM.INI` file with the following content:
 
 ```
 [386Enh]
@@ -42,13 +42,13 @@ WinTimeslice=100,50
 WinExclusive=0
 ```
 
-To suppress the "invalid switch" message, patch the WINICE.EXE file: replace the sequence 20 2F 33 0D with 0D 00 00 00.
-Launch WINICE.EXE and enjoy.
-If you already have a Windows installation, but you'd like to add the S-ICE_PM to your Path environment variable,
-it won't hurt to rename the win.com to, say wnk.com and patch the Winice.exe to replace the "win." with "wnk.".
+To suppress the "invalid switch" message, patch the `WINICE.EXE` file: replace the sequence `20 2F 33 0D` with `0D 00 00 00`.
+Launch `WINICE.EXE` and enjoy.
+If you already have a Windows installation, but you'd like to add the `S-ICE_PM` to your `Path` environment variable,
+it won't hurt to rename the `win.com` to, say `wnk.com` and patch the `Winice.exe` to replace the `win.` with `wnk.`.
 
 # NOTE: source availability
-- MS-DOS 4.0 opensourced by Microsoft. (Minimal MS-DOS version required to run Windows 3.1 in 386 enhanced mode is 3.1).
+- MS-DOS 4.0 opensourced by Microsoft. Minimal MS-DOS version required to run Windows 3.1 in 386 enhanced mode is 3.1,
 or you could use DOSBOX for which the source is available.
 FreeDOS can be used, although the kernel has to be compiled with `WIN31SUPPORT` define enabled and Windows 3.11 `system.ini` containing
 `[386Enh]` with the flag `InDOSPolling=TRUE` enabled and DOS file sharing (`share.com`) loaded. That is `/DWIN31SUPPORT` compile
