@@ -63,15 +63,15 @@ To add an icon to your new application, you need to do the following:
 
 2. Open the image in the Preview application – other graphics apps may also work.
 
-3. Press command-a to select all and then command-c to copy it to the clipboard.
+3. Press <kbd>⌘ command</kbd>-<kbd>a</kbd> to select all and then <kbd>⌘ command</kbd>-<kbd>c</kbd> to copy it to the clipboard.
 
-4. Select your application in the Finder and press command-i to Get Info window.
+4. Select your application in the Finder and press <kbd>⌘ command</kbd>-<kbd>i</kbd> to Get Info window.
 
 5. Click on the icon in the upper left corner of the info window to select it:
 
 ![Blank icon app](img/blank-icon-app.png)
 
-6. Paste the image from the clipboard which should change the icon.
+6. Paste the image from the clipboard via <kbd>⌘ command</kbd>-<kbd>v</kbd> which should change the icon.
 
 ![New icon app](img/new-icon-app.png)
 
