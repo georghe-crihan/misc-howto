@@ -12,7 +12,10 @@ Intel's own instruction set? It's the X64 story, but with a plot twist.
 
 Because for a decade, everyone's hopes were pinned on Itanium, the gleaming
 *Very Long Instruction Word*[^VLIW] future.
-[^VLIW]: Very Long Instruction Word.
+[^VLIW]: *VLIW* Very Long Instruction Word is a CPU technology where an instruction
+contains multiple operations that can be executed in parallel by different functional
+units..
+
 And just about the time that the orchestra
 swelled for its triumphant entrance, the Itanium missed its queue. AMD, the
 scrappy underdog from Sunnyvale, was already in the wings with X86-64. And
