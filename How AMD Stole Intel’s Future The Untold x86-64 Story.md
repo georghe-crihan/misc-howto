@@ -12,7 +12,7 @@ Intel's own instruction set? It's the X64 story, but with a plot twist.
 
 Because for a decade, everyone's hopes were pinned on Itanium, the gleaming
 *Very Long Instruction Word*[^VLIW] feature.
-[^VLIW]: *VLIW* Very Long Instruction Word is a CPU technology where an instruction
+[^VLIW]: *VLIW* - Very Long Instruction Word is a CPU technology where an instruction
 contains multiple operations that can be executed in parallel by different functional
 units..
 
@@ -32,8 +32,9 @@ everywhere, cheap and compatible with the mountains of software that the world
 already relied on. That compatibility was both its superpower and its shackle.
 A lot of people, some very smart ones, concluded that we'd eventually need to
 break out of the backward compatibility prison and start fresh. So, Intel and HP
-did exactly that with Itanium, betting on *EPIC*, *Explicitly Parallel Instruction
-Computing*. In *EPIC*, the compiler took on the burden of scheduling the instruction
+did exactly that with Itanium, betting on *EPIC*[^EPIC], *Explicitly Paralleli
+Instruction Computing*. In *EPIC*, the compiler took on the burden of scheduling
+the instruction
 stream statically, bundling operations and predicting resource hazards ahead of
 time. In theory, it would unlock incredible parallelism by extracting the
 last bits of instruction level parallelism from your code. In practice,
@@ -53,14 +54,14 @@ Itanium build of Windows, SQL Server, the whole bit. But the gravitational
 pull of compatibility remained enormous because the real world is messy.
 Drivers, legacy apps, software that was never really portable, and entire
 business processes welded to a specific ABI [^ABI] that all refused to move as one.
-[^ABI]: *ABI*: Application Binary Interface - the mechanism by which programs
+[^ABI]: *ABI* - Application Binary Interface - the mechanism by which programs
 call into the operating system or other libraries.
 
 And
 that's exactly where AMD saw the seam in its universe. Instead of overthrowing
 x86, they embraced and extended it. The design goal for their x86-64[^x86-64], which
 AMD later branded as AMD64, was quietly radical.
-[^x86-64]: *x86-64: AMD's proposed instruction set that extended the x86 set while
+[^x86-64]: *x86-64* - AMD's proposed instruction set that extended the x86 set while
 retaining backward compatibility with it.
 
 Keep the programming model
@@ -69,7 +70,7 @@ work, yet fix the architectural sins that throttled 32-bit performance and
 addressing. You could run 32-bit code essentially unmodified on a 64-bit
 operating system because the hardware provided compatibility mode under the
 umbrella of Long Mode[^LongMode].
-[^LongMode]: *Long Mode*: Supports larger memory (up to 2^64 bytes), enhanced
+[^LongMode]: *Long Mode* - Supports larger memory (up to 2^64 bytes), enhanced
 performance, and compatibility with 32-bit applications via Compatibility Mode.
 
 User mode 32-bit apps could use their same old
@@ -256,9 +257,9 @@ lesser channels would simplify this as AMD beat Intel because Intel bet on Itani
 and Itanium Dumb. But that leaves out half the truth. AMD didn't just get lucky that
 Itanium stumbled. They engineered an extension to x86 that was so compatible, so
 practical, and so strategically timed that the OS and compiler vendors could make
-it real without burning down the world. Yes, Itanium's compiler-driven *EPIC*[^EPIC]
+it real without burning down the world. Yes, Itanium's compiler-driven *EPIC*
 vision proved brittle, but AMD64 success depended on a thousand careful paper cuts.
-[^EPIC]: *EPIC*: Explicitly Parallel Instruction Computing. Requires the compiler to
+[^EPIC]: *EPIC* - Explicitly Parallel Instruction Computing. Requires the compiler to
 detect and leverage parallelism in the code.
 
 Mandate
