@@ -10,8 +10,10 @@ And today, we're going to answer a deceptively simple question, one that has sha
 20 years of desktop and server computing. How did AMD managed to leapfrog Intel using
 Intel's own instruction set? It's the X64 story, but with a plot twist.
 
-Because for a decade, everyone's hopes were pinned on Itanium, the gleaming,
-very long instruction word future. And just about the time that the orchestra
+Because for a decade, everyone's hopes were pinned on Itanium, the gleaming
+*Very Long Instruction Word*[^VLIW] future.
+[^VLIW]: Very Long Instruction Word.
+And just about the time that the orchestra
 swelled for its triumphant entrance, the Itanium missed its queue. AMD, the
 scrappy underdog from Sunnyvale, was already in the wings with X86-64. And
 when the baton slipped, they caught it in stride and never looked back. If you
