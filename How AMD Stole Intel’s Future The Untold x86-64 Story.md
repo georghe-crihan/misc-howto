@@ -12,9 +12,9 @@ Intel's own instruction set? It's the X64 story, but with a plot twist.
 
 Because for a decade, everyone's hopes were pinned on Itanium, the gleaming
 *Very Long Instruction Word*[^VLIW] feature.
-[^VLIW]: *VLIW* - Very Long Instruction Word is a CPU technology where an instruction
-contains multiple operations that can be executed in parallel by different functional
-units..
+[^VLIW]: *VLIW* - Very Long Instruction Word is a CPU technology where an
+instruction contains multiple operations that can be executed in parallel by
+different functional units..
 
 And just about the time that the orchestra
 swelled for its triumphant entrance, the Itanium missed its queue. AMD, the
@@ -74,7 +74,9 @@ umbrella of Long Mode[^LongMode].
 performance, and compatibility with 32-bit applications via Compatibility Mode.
 
 User mode 32-bit apps could use their same old
-instruction set and call into the 64-bit kernel through a thin WOW 64 veneer.
+instruction set and call into the 64-bit kernel through a thin WOW64[^WOW64] veneer.
+[^WOW64]: *WOW64* - Microsoft's solution for running 32-bit Windows applications
+"natively" on 64-bit Windows.
 
 Meanwhile, for native 64-bit processes, you got a cleaned up programming model
 with the rough edges of 1980's segmentation[^Segmentation] quietly swept away.
@@ -112,7 +114,11 @@ AMD's designers were conservative in the best sense. Rather than flipping the en
 virtual address range from 32 bits to a full 64, they defined canonical addresses and
 initially only used the low 48 bits of virtual addresses, sign extended through
 the upper bits. That made page table structures tractable. Four levels of
-paging with *PML4* at the top and left room for future expansion. Physical
+paging with *PML4*[^PML4] at the top and left room for future expansion.
+[^PML4]: *PML4* - The top-level structure in the four-level paging hierarchy used in
+x86-64 (AMD64) Long Mode for virtual-to-physical address translation.
+
+Physical
 address width also grew modestly at first. The idea was that OS vendors
 shouldn't have to re-engineer every allocator and metadata structure in the
 kernel to handle 64-bits everywhere overnight. Instead, they could move
@@ -120,12 +126,21 @@ deliberately, picking up the right 64-bit types for the paths that needed
 them and keeping structures tight elsewhere.
 
 Two other surgical fixes speak to the elegance of the design. First, AMD introduced
-*RIP* relative addressing because on 32-bit x86, position independent code was a
-contortion act. You wound up loading addresses into registers and indexing
+*RIP-relative*[^RIPRelative] addressing, because on 32-bit x86, position-independent
+code was a contortion act.
+[^RIPRelative]: *RIP-Relative* - Code and data implicitly based of the address of the
+*RIP* register, so that it can be executed at an arbitrary location in memory more
+easily.
+
+You wound up loading addresses into registers and indexing
 through them. With *RIP* relative addressing, code can refer to nearby
 data using offsets from the instruction pointer. That simplified loaders made
-shared libraries cleaner and reduced fixups. Intel had introduced *SYSENTER*
-and *SYSEXIT* initially on the 32-bit chips and on x64. AMD's syscall pair
+shared libraries cleaner and reduced fixups. Intel had introduced *SYSENTER*[^INT2E]
+and *SYSEXIT* initially on the 32-bit chips and on x64.
+[^INT2E]: *INT 2E* - the instruction used for a kernel transition on older X86 code.
+Replaced by *SYSCALL* and *SYSRETURN* on AMD64.
+
+AMD's *SYSCALL* pair
 became the clean fast path and you get it every time that you call into the OS.
 
 Meanwhile, back on the farm, let's check in on Microsoft. Inside NT, moving the
@@ -136,21 +151,35 @@ still familiar. The trap handlers were rewritten for the new calling
 conventions and the syscall path, but the kernel's responsibilities (scheduling, I/O,
 memory management) didn't suddenly change under the new system. *WOW64* could host
 32-bit userland in a set of 32-bit NTDLL and system DLLs living beside the 64-bit
-world. Thinking was narrow and mechanical, not a crazy research project. Drivers
-were the sore point, though, because you can't load a 32-bit driver into a 64-bit
-kernel any more than you can bolt a lawnmower carburetor onto a jet engine. So, the
-device ecosystem had to be rebuilt. But the NTDDK did what it's always done. It
-put a stable facade over the guts. So most authors were able to just port or
+world. Thunking[^Thunking] was narrow and mechanical, not a crazy research project.
+[^Thunking]: *Thunking* - Jumping from 32-bit to 64-bit, or copying data betwee them
+(or vice versa). Also done between 16 and 32-bit Windows.
+
+Drivers were the sore point though, because you can't load a 32-bit driver into a
+64-bit kernel any more than you can bolt a lawnmower carburetor onto a jet engine.
+So, the device ecosystem had to be rebuilt. But the NTDDK[^NTDDK] did what it's
+always done.
+[^NTDDK]: *NTDDK* - Windows NT Device Driver Kit, the software that you use to help
+you write device drivers for Windows.
+
+It put a stable facade over the guts. So most authors were able to just port or
 recompile rather than rewrite. Because Task Manager had always done its internal
 accounting using full 64-bit types, never assuming, for example, that PIDs fit in
 this many bits or that memory counters would forever be 32-bits. It just worked when
 recompiled for x64. The only visible change was cosmetic. Dave C. added an asterisk
 to the process column to mark 64-bit processes. And under the hood, it actually got
-a lot faster. Not because a process list suddenly needs 16 exabytes of address space,
-but because the 64-bit calling convention passes arguments and registers, and the
-compiler has room to keep hot variables out of the stack. The best porting stories
-are like that. The light comes on and the counters spin just the same as always,
-but quicker.
+a lot faster. Not because a process list suddenly needs 16 exabytes[^Exabyte] of
+address space, but because the 64-bit calling convention passes arguments and
+registers, and the compiler has room to keep hot variables[^HotVariables] out of
+the stack.
+[^Exabyte]: *Exabyte* - The amount of system memory consumed by a Chrome Tab when
+loading. 
+
+[^HotVariables]: *"HOT" Variables* - things that are used or referenced all the time,
+so making access to them faster speeds up the entire system as a result.
+
+The best porting stories are like that. The light comes on and the counters spin
+just the same as always, but quicker.
 
 Let's talk calling conventions a bit because this is where AMD's keep it
 familiar but better philosophy really paid off. On Win32, you live the world
@@ -168,16 +197,29 @@ the performance boost in boring server workloads directly to those types of
 decisions.
 
 And while we're in the weeds a little bit here, let's take a look at the memory
-protection story. AMD wired in the *NX* bit or the *No eXecute* bit as a
-firstclass citizen in the page tables. Intel later adopted it as *XD*. Windows
-turned that into *DEP*, *Data Execution Prevention*, long before write with
-execute disabled became cocktail chatter. AMD64 plus *DEP* plus *ASLR* moved
+protection story. AMD wired in the *NX* bit[^NXBit] or the *No eXecute* bit as a
+firstclass citizen in the page tables.
+[^NXBit]: *"NX" Bit* - Marks a page of memory as data only so that malware can't
+poke itself into memory, like on the stack, and then run itself.
+
+Intel later adopted it as *XD*. Windows
+turned that into *DEP*[^DEP], *Data Execution Prevention*, long before "Write With
+Execute Disabled" became cocktail chatter.
+[^DEP]: *DEP* - Data Execution Prevention - The Windows feature that uses the NX bit
+to protect important memory from malware exploits.
+
+AMD64 plus *DEP* plus *ASLR* moved
 the needle on exploit resistance in a very real way. Some of the most impactful
 security improvements of the mid-2000s were unlocked by the new ISA's page table
 semantics as much as by any special kernel hardening.
 
 If you want to see how architecture becomes strategy, compare the AMD64's approach
-with Itanium's. With IA64, the compiler is king. You recompile everything for the
+with Itanium's. With *IA64*[^IA64], the compiler is king.
+[^IA64]: *IA64* - Used in the Itanium family of processors. Unlike x86-64 (AMD64),
+IA-64 is a distinct architecture based on Explicitly Parallel Instruction Computing
+(EPIC).
+
+You recompile everything for the
 new world and let the optimizer discover the parallelism explicitly. With AMD64,
 the micro architecture is the plumber. You leave most of the instruction set
 architecture semantics alone and make the pipes bigger and straighter. The
@@ -185,8 +227,13 @@ really cool twist is that the micro-architectural part of AMD's bet paid off
 twice. First, the K8 Hammer cores that shipped in Opteron and Athlon64 were
 just flatout good CPUs. And they had an integrated memory controller, so you
 didn't pay the penalty of a front side bus hop to fetch every cache line. They
-used hyper transport rather than a shared front side bus, so multisocket
-Opteron and scaled pretty elegantly. And the pipeline wasn't just the heat soaked
+used *HyperTransport*[^HyperTransport], rather than a shared *Front Side Bus*, so
+multi-socket Opteron and scaled pretty elegantly.
+[^HyperTransport]: AMD HyperTransport is a high-speed, low-latency point-to-point
+link for interconnecting integrated circuits, such as btween multiple CPUs on a
+motherboard.
+
+And the pipeline wasn't just the heat soaked
 spaghetti factory that Intel's Prescott Netburst eventually became. When Intel
 aimed for 10GHz by stretching the pipeline and shrinking the useful work in each
 cycle, they drifted into a thermal cul-de-sac. AMD stayed tight and fast. So when
@@ -194,8 +241,11 @@ Windows Server and SQL Server compiled clean for the AMD64, the platform deliver
 honest to goodness throughput. Second, the AMD64 instruction set itself gave
 compilers the elbow room that they'd always wanted. Recompile your middleware as
 x64, and you saw gains even if your data structures didn't grow simply because
-spilling went down, inlining got smarter, and the register allocator stopped living
-in constant debt.
+spilling[^Spilling] went down, inlining got smarter, and the register allocator
+stopped living in constant debt.
+[^Spilling]: *Spilling* - When the compiler has to use stack space rather than fast
+registers to hold a variable that is being used by a section of code. More registers
+means less spilling!
 
 Meanwhile, the OS team at Microsoft could push out a 64-bit Windows that didn't
 strand the application ecosystem. WOW64 is a neat example of AMD's design enabling
