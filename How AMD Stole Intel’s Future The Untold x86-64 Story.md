@@ -80,7 +80,7 @@ instruction set and call into the 64-bit kernel through a thin WOW64[^WOW64] ven
 
 Meanwhile, for native 64-bit processes, you got a cleaned up programming model
 with the rough edges of 1980's segmentation[^Segmentation] quietly swept away.
-[^Segmentation] - *Segmentation*: The method of reaching higher addresses with a CPU
+[^Segmentation]: - *Segmentation* The method of reaching higher addresses with a CPU
 by combining a segment and offset register to yield a final address. It's not pretty
 and it's what the x86 used.
 
@@ -229,8 +229,7 @@ just flatout good CPUs. And they had an integrated memory controller, so you
 didn't pay the penalty of a front side bus hop to fetch every cache line. They
 used *HyperTransport*[^HyperTransport], rather than a shared *Front Side Bus*, so
 multi-socket Opteron and scaled pretty elegantly.
-[^HyperTransport]: AMD HyperTr:q
-ansport is a high-speed, low-latency point-to-point
+[^HyperTransport]: AMD HyperTransport is a high-speed, low-latency point-to-point
 link for interconnecting integrated circuits, such as btween multiple CPUs on a
 motherboard.
 
