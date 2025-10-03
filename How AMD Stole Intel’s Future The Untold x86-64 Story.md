@@ -1,4 +1,4 @@
-Transcript from Dave Plummer's Youtube channel:
+Transcript from [Dave Plummer's](https://www.linkedin.com/in/davidplummer) Youtube channel:
 https://www.youtube.com/watch?v=WyX8TO3awfw
 
 # Chip Wars: Why Itanium Died and x64 Took Over | Inside the Windows Port
@@ -229,7 +229,8 @@ just flatout good CPUs. And they had an integrated memory controller, so you
 didn't pay the penalty of a front side bus hop to fetch every cache line. They
 used *HyperTransport*[^HyperTransport], rather than a shared *Front Side Bus*, so
 multi-socket Opteron and scaled pretty elegantly.
-[^HyperTransport]: AMD HyperTransport is a high-speed, low-latency point-to-point
+[^HyperTransport]: AMD HyperTr:q
+ansport is a high-speed, low-latency point-to-point
 link for interconnecting integrated circuits, such as btween multiple CPUs on a
 motherboard.
 
