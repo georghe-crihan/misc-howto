@@ -1,0 +1,31 @@
+#
+# Flipper Zero IR signal file for Honeywell HL/HF series ACs.
+# Should work for, e.g., HL10CESWW or any HLxxCESxx units.
+# Should speak the YK-H/522E remote dialect.
+#
+Filetype: IR signals file
+Version: 1
+# 
+name: Power
+type: parsed
+protocol: NECext
+address: 01 7E 00 00
+command: 08 F7 00 00
+# 
+name: Temp_up
+type: parsed
+protocol: NECext
+address: 01 7E 00 00
+command: 05 FA 00 00
+# 
+name: Temp_down
+type: parsed
+protocol: NECext
+address: 01 7E 00 00
+command: 0D F2 00 00
+# 
+name: Mode_cool
+type: parsed
+protocol: NECext
+address: 01 7E 00 00
+command: 12 ED 00 00
